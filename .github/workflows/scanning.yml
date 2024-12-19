@@ -2,13 +2,8 @@ name: daily-build-and-scan
 
 on:
   schedule:
-    #- cron: "0 0 * * *"
-    - cron: "*/10 * * * *"
-
-#on:
-#  release:
-#    types: [published]
-
+    - cron: "0 0 * * *"
+    
 env:
   CURRENT_VERSION_TAG: "3.5.8"
   #github.event.repository.name is a special environment variable that gives us the repo name.  There isn't great documentation on it.
@@ -21,16 +16,16 @@ jobs:
     steps:
       -
         name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.3.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v3.8.0
       -
         name: Build image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v6.10.0
         with:
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:${{ env.CURRENT_VERSION_TAG }}, ${{ vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:latest
@@ -61,7 +56,7 @@ jobs:
           unzip "${SSG_DIR}/wolfi.zip" -d "${SSG_DIR}"
       -
         name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.3.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -116,7 +111,7 @@ jobs:
       -
         name: Upload reports
         if: success() || failure() # always run even if the previous step fails
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.5.0
         with:
           name: openscap-results
           path: |
@@ -184,7 +179,7 @@ jobs:
           sudo curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sudo sh -s -- -b /usr/local/bin
       -
         name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.3.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -216,7 +211,7 @@ jobs:
       -
         name: Upload reports
         if: success() || failure() # always run even if the previous step fails
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.5.0
         with:
           name: trufflehog-results
           path: |
@@ -281,7 +276,7 @@ jobs:
           npm install -g "@mitre/saf@${{ env.MITRE_SAF_VERSION }}"
       -
         name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.3.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -306,7 +301,7 @@ jobs:
       -
         name: Upload reports
         if: success() || failure() # always run even if the previous step fails
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.5.0
         with:
           name: ${{ env.OUTPUT_NAME }}
           path: |
@@ -381,7 +376,7 @@ jobs:
           npm install -g "@mitre/saf@${{ env.MITRE_SAF_VERSION }}"
       -
         name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.3.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -420,7 +415,7 @@ jobs:
       -
         name: Upload reports
         if: success() || failure() # always run even if the previous step fails
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.5.0
         with:
           name: trivy-results
           path: |
@@ -489,7 +484,7 @@ jobs:
           npm install -g "@mitre/saf@${{ env.MITRE_SAF_VERSION }}"
       -
         name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.3.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -514,7 +509,7 @@ jobs:
       -
         name: Upload reports
         if: success() || failure() # always run even if the previous step fails
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.5.0
         with:
           name: snyk-results
           path: |
@@ -581,7 +576,7 @@ jobs:
           db_daily: 'true'
       -
         name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.3.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -611,7 +606,7 @@ jobs:
       -
         name: Upload reports
         if: success() || failure() # always run even if the previous step fails
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.5.0
         with:
           name: clamd-results
           path: |
