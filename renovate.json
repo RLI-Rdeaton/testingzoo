@@ -1,6 +1,145 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ]
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommended",
+        "docker:enableMajor"
+    ],
+    "prConcurrentLimit": 10,
+    "prHourlyLimit": 10,
+    "packageRules": [
+        {
+            "matchDatasources": [
+                "npm"
+            ],
+            "matchDepNames": [
+                "@mitre/saf"
+            ],
+            "matchManagers": [
+                "custom.regex"
+            ],
+            "recreateWhen": "always",
+            "automerge": true,
+            "ignoreTests": true
+        },
+        {
+            "matchDatasources": [
+                "docker"
+            ],
+            "matchDepNames": [
+                "alpine"
+            ],
+            "recreateWhen": "always",
+            "automerge": true,
+            "ignoreTests": true
+        },
+        {
+            "matchDatasources": [
+                "github-releases"
+            ],
+            "matchDepNames": [
+                "ComplianceAsCode/content",
+                "chainguard-dev/stigs"
+            ],
+            "matchManagers": [
+                "custom.regex"
+            ],
+            "recreateWhen": "always",
+            "automerge": true,
+            "ignoreTests": true
+        },
+        {
+            "matchDatasources": [
+                "github-tags"
+            ],
+            "matchDepNames": [
+                "actions/upload-artifact",
+                "docker/login-action",
+                "docker/setup-buildx-action",
+                "docker/build-push-action",
+                "GuillaumeFalourd/clone-github-repo-action"
+            ],
+            "recreateWhen": "always",
+            "automerge": true,
+            "ignoreTests": true
+        },
+        {
+            "matchDatasources": [
+                "docker"
+            ],
+            "matchDepNames": [
+              "radiantone/zookeeper",
+              "docker.io/radiantone/zookeeper"
+            ],
+            "matchUpdateTypes": [
+                "patch"
+            ],
+            "recreateWhen": "always",
+            "automerge": true,
+            "ignoreTests": true
+        },
+        {
+            "matchDatasources": [
+                "docker"
+            ],
+            "matchDepNames": [
+                "radiantone/zookeeper",
+                "docker.io/radiantone/zookeeper"
+            ],
+            "matchManagers": [
+                "custom.regex"
+            ],
+            "matchUpdateTypes": [
+                "patch"
+            ],
+            "recreateWhen": "always",
+            "automerge": true,
+            "ignoreTests": true
+        }
+    ],
+    "customManagers": [
+        {
+            "customType": "regex",
+            "fileMatch": [
+                "\\.yml$"
+            ],
+            "matchStrings": [
+                "SCAP_SECURITY_GUIDE_VERSION *: *\"(?<currentValue>.+?)\""
+            ],
+            "depNameTemplate": "ComplianceAsCode/content",
+            "datasourceTemplate": "github-releases"
+        },
+        {
+            "customType": "regex",
+            "fileMatch": [
+                "\\.yml$"
+            ],
+            "matchStrings": [
+                "MITRE_SAF_VERSION *: *\"(?<currentValue>.+?)\""
+            ],
+            "depNameTemplate": "@mitre/saf",
+            "datasourceTemplate": "npm"
+        },
+        {
+            "customType": "regex",
+            "fileMatch": [
+                "\\.yml$"
+            ],
+            "matchStrings": [
+                "WOLFI_STIG_VERSION *: *\"(?<currentValue>.+?)\""
+            ],
+            "depNameTemplate": "chainguard-dev/stigs",
+            "datasourceTemplate": "github-releases"
+        },
+        {
+            "customType": "regex",
+            "fileMatch": [
+                "\\.yml$"
+            ],
+            "matchStrings": [
+                "CURRENT_VERSION_TAG *: *\"(?<currentValue>.+?)\""
+            ],
+            "depNameTemplate": "radiantone/zookeeper",
+            "datasourceTemplate": "docker"
+        }
+    ]
 }
