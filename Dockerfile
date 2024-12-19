@@ -6,7 +6,7 @@ ARG BASE_REGISTRY=docker.io
 ARG BASE_IMAGE=chainguard/wolfi-base
 ARG BASE_TAG=latest
 
-FROM radiantone/zookeeper:3.5.2 AS base
+FROM radiantone/zookeeper:3.5.8 AS base
 
 # RUN chmod -R g=u /opt/radiantone
 
