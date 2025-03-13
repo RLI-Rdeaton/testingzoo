@@ -8,7 +8,7 @@ env:
   CURRENT_VERSION_TAG: "3.5.8"
   #github.event.repository.name is a special environment variable that gives us the repo name.  There isn't great documentation on it.
   IMAGE_NAME: ${{ vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:latest
-  MITRE_SAF_VERSION: "1.4.20"
+  MITRE_SAF_VERSION: "1.4.21"
 
 jobs:
   build:
