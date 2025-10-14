@@ -38,7 +38,7 @@ jobs:
       image: alpine:3.22.2@sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412
     env:
       SCAP_SECURITY_GUIDE_VERSION: "0.1.78"
-      WOLFI_STIG_VERSION: "3.2.5"
+      WOLFI_STIG_VERSION: "3.2.6"
       SSG_DIR: "ssg"
       TOOL: "openscap"
       OUTPUT_NAME: "openscap-results"
