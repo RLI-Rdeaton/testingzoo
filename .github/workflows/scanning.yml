@@ -1,8 +1,8 @@
 name: daily-build-and-scan
 
-on:
-  schedule:
-    - cron: "0 0 * * *"
+#on:
+#  schedule:
+#    - cron: "0 0 * * *"
     
 env:
   CURRENT_VERSION_TAG: "3.5.8"
