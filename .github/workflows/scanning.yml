@@ -1,4 +1,4 @@
-name: daily-build-and-scan
+#name: daily-build-and-scan
 
 #on:
 #  schedule:
