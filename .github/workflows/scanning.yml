@@ -570,7 +570,7 @@ jobs:
     steps:
       -
         name: Start ClamAV daemon
-        uses: toblux/start-clamd-github-action@v0.2.1
+        uses: toblux/start-clamd-github-action@v0.3
         with:
           db_main: 'true'
           db_daily: 'true'
